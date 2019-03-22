@@ -4,6 +4,8 @@ class Pos:
     def __init__(self, left = 0, top = 0):
         self.left = left
         self.top = top
+    def __str__(self):
+        return 'Pos(%.2f, %.2f)'%(self.left, self.top)
         
 class Rct(Pos): #rectangle
     width = 0
@@ -13,6 +15,9 @@ class Rct(Pos): #rectangle
         self.top = top
         self.width = width
         self.height = height
+    def __str__(self):
+        return 'Rct(%.2f, %.2f, %.2f, %.2f)'%(self.left, self.top, self.width, self.height)
+
 
 class track:
     race_area = Rct()
@@ -38,9 +43,10 @@ class track:
         
     def __str__(self):
         s = ''
-        s += 'race area: ' + self.race_area.width + '* ' + self.race_area.height + '\n'
-        s += 'start point: ' + self.start_point.left + ', ' + self.start_point.top + '\n'
-        s += 'goal area: (' + self.goal_area.left + ', ' + self.goal_area.top + ', ' + self.goal_area.width + ', ' + self.goal_area.height + ')\n'
+        s += 'race area: ' + self.race_area.__str__() + '\n'
+        s += 'start point: ' + self.start_point.__str__() + '\n'
+        s += 'goal area: ' + self.goal_area.__str__() + '\n'
         s += 'barriers:\n'
         for bar in self.barriers:
-            s += '    (' + bar.left + ', ' + bar.top + ', ' + bar.width + ', ' + bar.height + ')\n'
+            s += '    ' + bar.__str__() + '\n'
+        return s
