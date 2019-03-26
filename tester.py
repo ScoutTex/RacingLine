@@ -1,5 +1,5 @@
 from track import *
+from drawer import *
 
-t = track()
-t.read('tracks/simple_straight/simple_straight.tk')
-print(t)
+d = Drawer('tracks/simple_straight/simple_straight.tk')
+d.draw()
