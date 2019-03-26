@@ -1,5 +1,6 @@
 from pos import Pos
 
+
 class Rct(Pos):  # rectangle
     width = 0
     height = 0
