@@ -1,7 +1,7 @@
 from turtle import setup, setworldcoordinates, goto, penup, pendown, left, forward, setheading
 from turtle import colormode, fillcolor, pencolor, begin_fill, end_fill, pensize, done
 from track import Track
-# from racingline import *
+from racingline import Racingline
 from sys import argv
 
 
