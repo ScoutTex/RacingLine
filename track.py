@@ -1,27 +1,5 @@
-class Pos:
-    bot = 0
-    left = 0
-
-    def __init__(self, left=0, bot=0):
-        self.left = left
-        self.bot = bot
-
-    def __str__(self):
-        return 'Pos(%.2f, %.2f)' % (self.left, self.bot)
-
-
-class Rct(Pos):  # rectangle
-    width = 0
-    height = 0
-
-    def __init__(self, left=0, bot=0, width=0, height=0):
-        self.left = left
-        self.bot = bot
-        self.width = width
-        self.height = height
-
-    def __str__(self):
-        return 'Rct(%.2f, %.2f, %.2f, %.2f)' % (self.left, self.bot, self.width, self.height)
+from pos import Pos
+from rct import Rct
 
 
 class Track:
@@ -34,6 +12,7 @@ class Track:
         with open(file, 'r') as f:
             self.race_area.width, self.race_area.height = [int(x) for x in next(f).split()]
             self.start_point.left, self.start_point.bot = [int(x) for x in next(f).split()]
+            self.goal_area.left, self.goal_area.bot, self.goal_area.width, self.goal_area.height = [int(x) for x in next(f).split()]
             barrier_lines = int(next(f))
             self.barriers.clear()
             for _ in range(barrier_lines):
