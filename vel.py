@@ -12,3 +12,4 @@ class Vel:  # velocity
     def __add__(self, v1):
         self.rate += v1.rate
         self.angle += v1.angle
+        return self
