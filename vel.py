@@ -8,3 +8,7 @@ class Vel:  # velocity
 
     def __str__(self):
         return "Vel(%.2f, %.2f)" % (self.rate, self.angle)
+    
+    def __add__(self, v1):
+        self.rate += v1.rate
+        self.angle += v1.angle
