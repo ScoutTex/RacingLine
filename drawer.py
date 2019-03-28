@@ -1,7 +1,7 @@
 from turtle import setup, setworldcoordinates, goto, penup, pendown, left, right, forward, setheading
 from turtle import colormode, fillcolor, pencolor, begin_fill, end_fill, pensize, done, circle, speed
-from track import Track
-from racingline import Racingline
+# from track import Track
+# from racingline import Racingline
 from sys import argv
 
 
@@ -101,4 +101,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
