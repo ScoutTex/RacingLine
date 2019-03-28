@@ -6,15 +6,10 @@ from sys import argv
 
 
 class Drawer:
-    tk = Track()
-    rls = []
-
-    def __init__(self, track_file='', racingline_files=[], speed=3):
-        self.tk = Track(track_file)
-        for racingline_file in racingline_files:
-            self.rls.append(Racingline(racingline_file))
+    def __init__(self, track, racinglines=[], speed=3):
+        self.tk = track
+        self.rls = racinglines
         self.default_speed = speed
-        colormode(255)
 
     def draw_rct(self, r):
         goto(r.left, r.bot)
@@ -76,6 +71,7 @@ class Drawer:
         speed(self.default_speed)
 
     def draw(self):
+        colormode(255)
         setup(self.tk.race_area.width, self.tk.race_area.height)
         setworldcoordinates(0, 0, self.tk.race_area.width, self.tk.race_area.height)
         speed(self.default_speed)
@@ -105,3 +101,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
