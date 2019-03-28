@@ -4,6 +4,13 @@ from vel import Vel
 class Racingline:
     steps = []
 
+    def is_racingline_file(self, racingline_file):
+        if racingline_file[-3:] != '.rl':
+            print('ERROR: wrong racingline file format, should be *.rl')
+            return False
+        else:
+            return True
+
     def read(self, file):
         with open(file, 'r') as f:
             t = [int(x) for x in next(f).split()]
@@ -14,7 +21,7 @@ class Racingline:
                 self.steps.append(Vel(t[0], t[1]))
 
     def __init__(self, racingline_file=''):
-        if len(racingline_file) > 1:
+        if self.is_racingline_file(racingline_file):
             self.read(racingline_file)
         else:
             self.start = Vel(0, 0)

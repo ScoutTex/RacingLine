@@ -9,26 +9,10 @@ class Drawer:
     tk = Track()
     rls = []
 
-    def is_track_file(self, track_file):
-        if track_file[-3:] != '.tk':
-            print('ERROR: wrong track file format, should be *.tk')
-            return False
-        else:
-            return True
-
-    def is_racingline_file(self, racingline_file):
-        if racingline_file[-3:] != '.rl':
-            print('ERROR: wrong racingline file format, should be *.rl')
-            return False
-        else:
-            return True
-
     def __init__(self, track_file='', racingline_files=[], speed=3):
-        if self.is_track_file(track_file):
-            self.tk = Track(track_file)
+        self.tk = Track(track_file)
         for racingline_file in racingline_files:
-            if self.is_racingline_file(racingline_file):
-                self.rls.append(Racingline(racingline_file))
+            self.rls.append(Racingline(racingline_file))
         self.default_speed = speed
         colormode(255)
 

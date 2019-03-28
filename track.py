@@ -1,5 +1,7 @@
 from pos import Pos
 from rct import Rct
+from vel import Vel
+import math
 
 
 class Track:
@@ -7,6 +9,13 @@ class Track:
     start_point = Pos()
     goal_area = Rct()
     barriers = []
+
+    def is_track_file(self, track_file):
+        if track_file[-3:] != '.tk':
+            print('ERROR: wrong track file format, should be *.tk')
+            return False
+        else:
+            return True
 
     def read(self, file):
         with open(file, 'r') as f:
@@ -23,7 +32,7 @@ class Track:
     def __init__(self, track_file=''):
         self.race_area.left = 0
         self.race_area.bot = 0
-        if len(track_file) > 1:
+        if self.is_track_file(track_file):
             self.read(track_file)
 
     def __str__(self):
@@ -38,3 +47,24 @@ class Track:
         for barrier in self.barriers:
             s += '    ' + str(barrier) + '\n'
         return s
+
+    def race(self, rl):
+        p = Pos(self.start_point.left, self.start_point.bot)
+        v = Vel(rl.start.rate, rl.start.angle)
+        p.left += v * math.cos(v.angle * math.pi / 180)
+        p.bot += v * math.sin(v.angle * math.pi / 180)
+        step_cnt = 1
+        goal_cnt = -1
+        for s in rl.steps:
+            v += s
+            p.left += v * math.cos(v.angle * math.pi / 180)
+            p.bot += v * math.sin(v.angle * math.pi / 180)
+            if p.is_in(self.goal_area):
+                goal_cnt = step_cnt
+                break
+            step_cnt += 1
+        if goal_cnt == -1:
+            return -1
+                    
+
+
