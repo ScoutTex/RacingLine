@@ -13,3 +13,6 @@ class Rct(Pos):  # rectangle
 
     def __str__(self):
         return 'Rct(%.2f, %.2f, %.2f, %.2f)' % (self.left, self.bot, self.width, self.height)
+
+    def include(self, p):
+        return p.is_in(self)
