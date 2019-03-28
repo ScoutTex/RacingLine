@@ -28,10 +28,13 @@ class Track:
 
     def __str__(self):
         s = ''
-        s += 'race area: ' + self.race_area.__str__() + '\n'
-        s += 'start point: ' + self.start_point.__str__() + '\n'
-        s += 'goal area: ' + self.goal_area.__str__() + '\n'
+        s += '=== Track Object ===\n'
+        s += 'race area: ' + str(self.race_area) + '\n'
+        s += 'start point: ' + str(self.start_point) + '\n'
+        s += 'goal area: ' + str(self.goal_area) + '\n'
         s += 'barriers:\n'
+        for i in range(len(self.barriers)):
+            s += '    %d: %s' % (i, str(self.barriers[i]))
         for barrier in self.barriers:
-            s += '    ' + barrier.__str__() + '\n'
+            s += '    ' + str(barrier) + '\n'
         return s
