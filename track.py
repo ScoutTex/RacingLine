@@ -51,20 +51,35 @@ class Track:
     def race(self, rl):
         p = Pos(self.start_point.left, self.start_point.bot)
         v = Vel(rl.start.rate, rl.start.angle)
-        p.left += v * math.cos(v.angle * math.pi / 180)
-        p.bot += v * math.sin(v.angle * math.pi / 180)
+        p.left += v.rate * math.cos(v.angle * math.pi / 180)
+        p.bot += v.rate * math.sin(v.angle * math.pi / 180)
         step_cnt = 1
         goal_cnt = -1
         for s in rl.steps:
             v += s
-            p.left += v * math.cos(v.angle * math.pi / 180)
-            p.bot += v * math.sin(v.angle * math.pi / 180)
+            p.left += v.rate * math.cos(v.angle * math.pi / 180)
+            p.bot += v.rate * math.sin(v.angle * math.pi / 180)
             if p.is_in(self.goal_area):
                 goal_cnt = step_cnt
                 break
+            p_last = Pos(p.left, p.bot)
             step_cnt += 1
         if goal_cnt == -1:
             return -1
-                    
-
-
+        sum = float(goal_cnt)
+        step_length = 1 / 2
+        if p.is_on_edge(self.goal_area):
+            return sum
+        p0 = Pos(p_last.left, p_last.bot)
+        p1 = Pos(p.left, p.bot)
+        for _ in range(30):
+            pm = p0.mid_pos(p1)
+            if pm.is_on_edge(self.goal_area):
+                return sum - step_length
+            step_length /= 2
+            if pm.is_in(self.goal_area):
+                p1 = Pos(pm.left, pm.bot)
+                sum -= step_length
+            else:
+                p0 = Pos(pm.left, pm.bot)
+        return sum
