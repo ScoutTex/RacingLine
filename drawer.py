@@ -47,7 +47,7 @@ class Drawer:
         angle, rate = rl.start.angle, rl.start.rate
         setheading(angle)
         forward(rate)
-        for s in rl.step:
+        for s in rl.steps:
             angle += s.angle
             rate += s.rate
             setheading(angle)
@@ -62,7 +62,7 @@ class Drawer:
         self.draw_cir(4)
         forward(rate)
         self.draw_cir(4)
-        for s in rl.step:
+        for s in rl.steps:
             angle += s.angle
             rate += s.rate
             setheading(angle)
