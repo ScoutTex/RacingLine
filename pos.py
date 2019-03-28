@@ -10,8 +10,9 @@ class Pos:
         return 'Pos(%.2f, %.2f)' % (self.left, self.bot)
 
     def is_in(self, r):
-        if self.left >= r.left and self.left <= r.left + r.width and \
-                self.bot >= r.bot and self.bot <= r.bot + r.height:
-            return True
-        else:
-            return False
+        return self.left >= r.left and self.left <= r.left + r.width and \
+                self.bot >= r.bot and self.bot <= r.bot + r.height
+
+    def is_on_edge(self, r):
+        return self.left == r.left or self.left == r.left + r.width or \
+                self.bot == r.bot or self.bot == r.bot + r.height
