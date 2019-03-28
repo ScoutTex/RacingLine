@@ -16,3 +16,6 @@ class Rct(Pos):  # rectangle
 
     def include(self, p):
         return p.is_in(self)
+
+    def is_on_edge(self, p):
+        return p.is_on_edge(self)
