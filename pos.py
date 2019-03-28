@@ -16,3 +16,6 @@ class Pos:
     def is_on_edge(self, r):
         return self.left == r.left or self.left == r.left + r.width or \
                 self.bot == r.bot or self.bot == r.bot + r.height
+
+    def mid_pos(self, p):
+        return Pos((self.left + p.left) / 2, (self.bot + p.bot) / 2)
