@@ -1,3 +1,7 @@
+from vel import Vel
+from math import cos, sin, pi
+
+
 class Pos:
     bot = 0
     left = 0
@@ -8,6 +12,14 @@ class Pos:
 
     def __str__(self):
         return 'Pos(%.2f, %.2f)' % (self.left, self.bot)
+
+    def __add__(self, v):
+        if type(v) != Vel:
+            return self
+        p = Pos(self.left, self.bot)
+        p.left += v.rate * cos(v.angle * pi / 180)
+        p.bot += v.rate * sin(v.angle * pi / 180)
+        return p
 
     def is_in(self, r):
         return self.left >= r.left and self.left <= r.left + r.width and \

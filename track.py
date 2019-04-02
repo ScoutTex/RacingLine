@@ -1,7 +1,6 @@
 from pos import Pos
 from rct import Rct
 from vel import Vel
-import math
 
 
 class Track:
@@ -51,14 +50,12 @@ class Track:
     def race(self, rl):
         p = Pos(self.start_point.left, self.start_point.bot)
         v = Vel(rl.start.rate, rl.start.angle)
-        p.left += v.rate * math.cos(v.angle * math.pi / 180)
-        p.bot += v.rate * math.sin(v.angle * math.pi / 180)
+        p += v
         step_cnt = 1
         goal_cnt = -1
         for s in rl.steps:
             v += s
-            p.left += v.rate * math.cos(v.angle * math.pi / 180)
-            p.bot += v.rate * math.sin(v.angle * math.pi / 180)
+            p += v
             if p.is_in(self.goal_area):
                 goal_cnt = step_cnt
                 break
@@ -67,7 +64,7 @@ class Track:
         if goal_cnt == -1:
             return -1
         sum = float(goal_cnt)
-        step_length = 1 / 2
+        step_length = 1
         if p.is_on_edge(self.goal_area):
             return sum
         p0 = Pos(p_last.left, p_last.bot)
