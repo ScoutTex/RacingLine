@@ -48,8 +48,10 @@ class Track:
         return s
 
     def race(self, rl):
+        if self.crush(rl):
+            return -1
         p = Pos(self.start_point.left, self.start_point.bot)
-        v = Vel(rl.start.rate, rl.start.angle)
+        v = rl.start
         p += v
         step_cnt = 1
         goal_cnt = -1
@@ -80,3 +82,17 @@ class Track:
             else:
                 p0 = Pos(pm.left, pm.bot)
         return sum
+
+    def crush(self, rl):
+        p0 = Pos(self.start_point.left, self.start_point.bot)
+        p1 = p0 + rl.start
+        for barrier in self.barriers:
+            if barrier.crush(p0, p1):
+                return True
+        for step in rl.steps:
+            p0 = p1
+            p1 += step
+            for barrier in self.barriers:
+                if barrier.crush(p0, p1):
+                    return True
+        return False
