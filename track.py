@@ -51,7 +51,7 @@ class Track:
         if self.crush(rl):
             return -1
         p = Pos(self.start_point.left, self.start_point.bot)
-        v = rl.start
+        v = Vel(rl.start.rate, rl.start.angle)
         p += v
         step_cnt = 1
         goal_cnt = -1
