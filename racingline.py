@@ -21,8 +21,10 @@ class Racingline:
                 self.steps.append(Vel(t[0], t[1]))
 
     def __init__(self, racingline_file=''):
-        if self.is_racingline_file(racingline_file):
+        if type(racingline_file) is str and self.is_racingline_file(racingline_file):
             self.read(racingline_file)
+        elif type(racingline_file) is Racingline:
+            self.copy(racingline_file)
         else:
             self.start = Vel(0, 0)
             self.steps = []
@@ -35,3 +37,9 @@ class Racingline:
         for i in range(len(self.steps)):
             s += '    %d: %s\n' % (i, str(self.steps[i]))
         return s
+
+    def copy(self, rl):
+        self.start = Vel(rl.start.rate, rl.start.angle)
+        self.steps = []
+        for i in range(len(rl.steps)):
+            self.steps.append(Vel(rl.steps[i].rate, rl.steps[i].angle))
