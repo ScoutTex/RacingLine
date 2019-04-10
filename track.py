@@ -63,7 +63,7 @@ class Track:
                 break
             p_last = Pos(p.left, p.bot)
             step_cnt += 1
-        if goal_cnt == -1:
+        if goal_cnt == -1:  # not finished
             return -1
         sum = float(goal_cnt)
         step_length = 1
