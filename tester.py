@@ -23,4 +23,8 @@ rls = Evolutioner.evolution(rl)
 
 for rl in rls:
     print(rl)
+    print(tk.race(rl))
 print(rls)
+
+d = Drawer(tk, rls)
+d.draw()
