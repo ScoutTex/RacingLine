@@ -47,9 +47,10 @@ class Track:
             s += '    ' + str(barrier) + '\n'
         return s
 
+    # returns [number time, bool finished]
     def race(self, rl):
         if self.crush(rl):
-            return -1
+            return [0, False]
         p = Pos(self.start_point.left, self.start_point.bot)
         v = Vel(rl.start.rate, rl.start.angle)
         p += v
@@ -64,24 +65,26 @@ class Track:
             p_last = Pos(p.left, p.bot)
             step_cnt += 1
         if goal_cnt == -1:  # not finished
-            return -1
+            return [len(rl.steps), False]
+        if goal_cnt < len(rl.steps):
+            rl.steps = rl.steps[:goal_cnt]
         sum = float(goal_cnt)
         step_length = 1
         if p.is_on_edge(self.goal_area):
-            return sum
+            return [sum, True]
         p0 = Pos(p_last.left, p_last.bot)
         p1 = Pos(p.left, p.bot)
         for _ in range(30):
             pm = p0.mid_pos(p1)
             if pm.is_on_edge(self.goal_area):
-                return sum - step_length
+                return [sum - step_length, True]
             step_length /= 2
             if pm.is_in(self.goal_area):
                 p1 = Pos(pm.left, pm.bot)
                 sum -= step_length
             else:
                 p0 = Pos(pm.left, pm.bot)
-        return sum
+        return [sum, True]
 
     def crush(self, rl):
         p0 = Pos(self.start_point.left, self.start_point.bot)
