@@ -87,15 +87,20 @@ class Track:
         return [sum, True]
 
     def crush(self, rl):
-        p0 = Pos(self.start_point.left, self.start_point.bot)
-        p1 = p0 + rl.start
+        p = Pos(self.start_point.left, self.start_point.bot)
+        p_last = Pos(p.left, p.bot)
+        v = Vel(rl.start.rate, rl.start.angle)
+        p += v
         for barrier in self.barriers:
-            if barrier.crush(p0, p1):
+            if barrier.crush(p_last, p):
                 return True
-        for step in rl.steps:
-            p0 = p1
-            p1 += step
+        p_last = Pos(p.left, p.bot)
+        for s in rl.steps:
+            v += s
+            p += v
             for barrier in self.barriers:
-                if barrier.crush(p0, p1):
+                if barrier.crush(p_last, p):
                     return True
+            p_last = Pos(p.left, p.bot)
+
         return False
