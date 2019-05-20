@@ -21,8 +21,17 @@ for i in range(100):
         else:
             results.append([result, rl])
     results.sort(key=lambda x: x[0][0])
-    if len(results) > 100:
-        results = results[:100]
+    j = 1
+    while True:
+        if j >= len(results):
+            break
+        elif results[j] == results[j-1]:
+            results.__delitem__(j)
+        else:
+            j += 1
+    max_len = 10
+    if len(results) > max_len:
+        results = results[:max_len]
     rls.clear()
     for result in results:
         rls.append(result[1])
