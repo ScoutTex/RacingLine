@@ -26,8 +26,12 @@ class Rct(Pos):  # rectangle
             return (p0.bot == hp0.bot
                     and p0.left <= hp1.left
                     and p1.left >= hp0.left)
-        x = p0.left + (hp0.bot - p0.bot) * (p1.left - p0.left) / (p1.bot - p0.bot)
-        return (x >= hp0.left and x <= hp1.left)
+        elif ((p0.bot > hp0.bot and p1.bot > hp0.bot)
+                or (p0.bot < hp0.bot and p1.bot < hp0.bot)):
+            return False
+        else:
+            x = p0.left + (hp0.bot - p0.bot) * (p1.left - p0.left) / (p1.bot - p0.bot)
+            return (x >= hp0.left and x <= hp1.left)
 
     def crush_vline(self, vp0, vp1, p0, p1):
         hp0 = Pos(vp0.bot, vp0.left)
