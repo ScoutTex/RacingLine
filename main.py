@@ -7,11 +7,19 @@ from racingline import Racingline
 from evolutioner import Evolutioner
 
 
-tk = Track('tracks/simple_straight/simple_straight.tk')
-rl = Racingline('tracks/simple_straight/rl01.rl')
+
+# tk = Track('tracks/simple_straight/simple_straight.tk')
+# rl = Racingline('tracks/simple_straight/rl01.rl')
+tk = Track('tracks/simple_90/simple_90.tk')
+rl = Racingline('tracks/simple_90/rl01.rl')
+
+# d = Drawer(tk, [rl])
+# d.draw()
+
 
 rls = [rl]
-for i in range(100):
+evolution_generation_cnt = 100
+for i in range(evolution_generation_cnt):
     rls = Evolutioner.evolution(rls)
     results = []
     for rl in rls:
