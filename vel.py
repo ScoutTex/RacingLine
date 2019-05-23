@@ -13,3 +13,6 @@ class Vel:  # velocity
         self.rate += v1.rate
         self.angle += v1.angle
         return self
+
+    def __eq__(self, v):
+        return (self.rate == v.rate and self.angle == v.angle)
